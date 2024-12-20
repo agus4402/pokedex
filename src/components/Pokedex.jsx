@@ -90,24 +90,13 @@ const Pokedex = ({ search }) => {
       ></div>
       {pokemons.length > 0 ? (
         <div
-          style={{
-            display: "grid",
-            width: "calc(267px * 5)",
-            gridTemplateColumns: "repeat(5, 1fr)",
-            gridTemplateRows: "repeat(4, auto)",
-            gap: "10px",
-          }}
+          id="pokedexGrid"
         >
           {pokemons.map((pokemon, index) => (
             <div
+              id="cardContainer"
               key={index}
               ref={index === pokemons.length - 1 ? lastElementRef : null}
-              style={{
-                width: "267px",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
             >
               <div
                 style={{

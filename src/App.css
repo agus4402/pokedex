@@ -6,6 +6,27 @@
   --border-color: rgba(255, 255, 255, 0.2);
   --active-button-color: rgba(235, 235, 235, 0.5);
   --button-color: rgba(235, 235, 235, 0.253);
+  --font-color: rgba(255, 255, 255, 0.8);
+}
+
+body {
+  color: white;
+}
+
+h1,
+h2 {
+  padding: 0px;
+  margin: 0px;
+}
+
+h1 {
+  font-size: 20px;
+  font-weight: 900;
+  filter: drop-shadow(0 0 0.7rem white);
+}
+
+h2 {
+  font-size: 16px;
 }
 
 .App-logo {
@@ -22,8 +43,7 @@
 .App-header {
 }
 
-.App-main{
-  
+.App-main {
 }
 
 .App-link {
@@ -49,26 +69,27 @@
 }
 
 #card {
-  position:relative;
-  box-shadow:0px 0px 10px fade(#fff,80%);
-  background-size:cover !important;  
+  position: relative;
+  box-shadow: 0px 0px 10px fade(#fff, 80%);
+  background-size: cover !important;
   &::after {
-    width:100%;
-    height:100%;
-    border-radius:50px;
-    position:absolute;
-    top:0;left:0;
-    z-index:-1;
-    content:'';
-    background:inherit;
-    filter:blur(20px);
-    transform:scale(0.8);
-    opacity:0;
-    transition:500ms all ease-in-out 0ms;
+    width: 100%;
+    height: 100%;
+    border-radius: 50px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    content: "";
+    background: inherit;
+    filter: blur(20px);
+    transform: scale(0.8);
+    opacity: 0;
+    transition: 500ms all ease-in-out 0ms;
   }
   &:hover::after {
-    transform:scale(1.05);
-    opacity:0.8;
+    transform: scale(1.05);
+    opacity: 0.8;
   }
 }
 
@@ -82,11 +103,28 @@
   border-radius: 20px;
 }
 
-@keyframes App-logo-spin {
-  from {
+#searchInput::placeholder {
+  color: white;
+}
+
+.pokeball {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  position: relative;
+  overflow: hidden;
+  background: url("/public/imgs/pokeball.png");
+  background-size: cover;
+  filter: invert(0.89) drop-shadow(0 0 1.5rem rgb(128, 128, 128));
+  animation: frames 1.5s linear 0s infinite;
+}
+
+/* AnimationFrames */
+@keyframes frames {
+  0% {
     transform: rotate(0deg);
   }
-  to {
+  100% {
     transform: rotate(360deg);
   }
 }

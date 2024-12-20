@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
+import LoadingPokeball from "./common/LoadingPokeball";
 
 const Pokedex = ({ search }) => {
   const [pokemons, setPokemons] = useState([]);
@@ -33,7 +34,7 @@ const Pokedex = ({ search }) => {
 
     try {
       if (q.name) {
-        query += `&q=${q.name ? `name:${q.name}*` : ""}`;
+        query += `&q=${q.name ? `name:*${q.name}*` : ""}`;
       }
       console.log(query);
       setLoading(true);
@@ -150,12 +151,12 @@ const Pokedex = ({ search }) => {
           ))}
         </div>
       ) : (
-        !loading && <p>No Pokemons</p>
+        !loading && <p>No Pokecards found</p>
       )}
 
       {loading && (
         <span style={{ color: "white" }}>
-          <p>Loading...</p>
+          <LoadingPokeball />
         </span>
       )}
     </div>

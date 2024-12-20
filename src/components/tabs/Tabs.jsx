@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const Tabs = ({ tabs }) => {
+const Tabs = ({ tabs, afterTabs }) => {
   const [activeTab, setActiveTab] = useState(0);
 
   return (
@@ -33,6 +33,7 @@ const Tabs = ({ tabs }) => {
             {tab.label}
           </button>
         ))}
+        {afterTabs}
       </div>
 
       <div style={{ height: "calc(100% - 61px)", overflow: "auto" }}>

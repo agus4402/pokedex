@@ -1,31 +1,49 @@
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 
-const Pokedex = () => {
+const Pokedex = ({ search }) => {
   const [pokemons, setPokemons] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [isLastPage, setIsLastPage] = useState(false);
   const [page, setPage] = useState(1);
-
+  const [lastSearch, setLastSearch] = useState("");
   const observer = useRef();
 
-  useEffect(() => {
-    getPokemons(page);
-  }, [page]);
+  const pageSize = 20;
 
-  const getPokemons = async (page = 1, pageSize = 20, orderBy = "number") => {
+  useEffect(() => {
+    console.log("search", search);
+    getPokemons(page, pageSize, "number", { name: search });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [page, search]);
+
+  const getPokemons = async (
+    page = 1,
+    pageSize = 20,
+    orderBy = "number",
+    q = { name: "" }
+  ) => {
+    let query =
+      "https://api.pokemontcg.io/v2/cards?page=" +
+      page +
+      "&pageSize=" +
+      pageSize +
+      "&orderBy=" +
+      orderBy;
+
     try {
+      if (q.name) {
+        query += `&q=${q.name ? `name:${q.name}*` : ""}`;
+      }
+      console.log(query);
       setLoading(true);
-      const res = await axios.get(
-        "https://api.pokemontcg.io/v2/cards?page=" +
-          page +
-          "&pageSize=" +
-          pageSize +
-          "&orderBy=" +
-          orderBy
-      );
+      const res = await axios.get(query);
       setLoading(false);
-      setPokemons((prev) => [...prev, ...res.data.data]);
-      console.log(res.data.data);
+      setPokemons((prev) =>
+        lastSearch !== q.name ? res.data.data : [...prev, ...res.data.data]
+      );
+      setLastSearch(q.name);
+      setIsLastPage(res.data.data.length < pageSize);
     } catch (error) {
       console.log(error);
     }
@@ -36,7 +54,7 @@ const Pokedex = () => {
     if (loading) return;
     if (observer.current) observer.current.disconnect();
     observer.current = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting) {
+      if (entries[0].isIntersecting && !isLastPage) {
         setPage((prevPage) => prevPage + 1);
       }
     });
@@ -49,7 +67,7 @@ const Pokedex = () => {
         display: "flex",
         alignItems: "center",
         flexDirection: "column",
-        padding: "20px 0px 0px 0px",
+        padding: "20px 0px 20px 0px",
         gap: "20px",
       }}
     >
@@ -136,7 +154,7 @@ const Pokedex = () => {
       )}
 
       {loading && (
-        <span style={{ color: "white", paddingBottom: "10px" }}>
+        <span style={{ color: "white" }}>
           <p>Loading...</p>
         </span>
       )}

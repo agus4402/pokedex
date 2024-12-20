@@ -40,38 +40,62 @@ h2 {
   }
 }
 
-.App-header {
-}
-
-.App-main {
-}
-
 .App-link {
   color: #61dafb;
 }
 
-.pokedexGrid {
+#pokedexGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 1rem;
+  width: calc(267px * 5 + 40px);
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(4, auto);
+  gap: 10px;
 }
 
-@media (max-width: 768px) {
-  .pokedexGrid {
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+#cardContainer {
+  width: 267px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (max-width: 1386px) {
+  #pokedexGrid {
+    width: calc(267px * 3 + 20px);
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
-@media (max-width: 480px) {
-  .pokedexGrid {
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+@media (max-width: 840px) {
+  #pokedexGrid {
+    width: calc(267px * 2 + 10px);
+    grid-template-columns: repeat(2, 1fr);
+  }
+  #tabContainer {
+    justify-content: flex-end !important;
+    padding: 0 10px 0 0;
+  }
+
+  #searchInput {
+    width: 100px;
+  }
+}
+
+@media (max-width: 570px) {
+  #pokedexGrid {
+    width: 100%;
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  #cardContainer {
+    width: 100%;
   }
 }
 
 #card {
   position: relative;
   box-shadow: 0px 0px 10px fade(#fff, 80%);
-  background-size: cover !important;
+  background-size: cover;
   &::after {
     width: 100%;
     height: 100%;

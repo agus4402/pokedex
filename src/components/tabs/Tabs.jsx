@@ -1,6 +1,12 @@
 import { useState } from "react";
 
-const Tabs = ({ tabs, beforeTabs, afterTabs, title }) => {
+const Tabs = ({
+  tabs,
+  beforeTabs,
+  afterTabs,
+  title,
+  styles = { tabContainer: {} },
+}) => {
   const [activeTab, setActiveTab] = useState(0);
 
   return (
@@ -17,13 +23,17 @@ const Tabs = ({ tabs, beforeTabs, afterTabs, title }) => {
           background: "#ddd9",
         }}
       >
-        <div style={{ position: "absolute", left: 10, top: 0, bottom: 0 }}>{title}</div>
+        <div style={{ position: "absolute", left: 10, top: 0, bottom: 0 }}>
+          {title}
+        </div>
         <div
+          id="tabContainer"
           style={{
             width: "100%",
             display: "flex",
             justifyContent: "center",
             gap: "10px",
+            ...styles.tabContainer,
           }}
         >
           {beforeTabs}
